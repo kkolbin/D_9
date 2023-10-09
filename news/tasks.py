@@ -18,13 +18,14 @@ def send_weekly_email_notifications():
 
         if recent_posts:
             email_subject = "Weekly News Update"
-            email_html_message = render_to_string('news/weekly_email.html', {'posts': recent_posts})
+            email_html_message = render_to_string('account/weekly_email.html',
+                                                  {'posts': recent_posts, 'username': user.username})
             email_plaintext_message = strip_tags(email_html_message)
 
             send_mail(
                 email_subject,
                 email_plaintext_message,
-                settings.DEFAULT_FROM_EMAIL,  # Use the default from email specified in settings
+                settings.DEFAULT_FROM_EMAIL,
                 [user.email],
                 html_message=email_html_message
             )
